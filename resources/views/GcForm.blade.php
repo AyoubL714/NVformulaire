@@ -11,19 +11,35 @@
   </header>
   <body>
   <div id="form-outer">
-    <h2 id="description">Information de Congés</h2>
+    <h2 id="description">Informations de Congés</h2>
+
+    <form method="POST" action="/GcForm" >
+           <!-- demande de Matricule -->
+           <div class="rowTab">
+            <div class="labels"><strong>
+                <label id="name-label" for="matricule">*Matricule :</label>
+              </strong></div>
+            <div class="rightTab">
+              <input autofocus type="number" name="matricule" id="matricule" class="input-field" required>
+            </div>
+          </div>
+          <button id="search" type="button">Recherche !</button>
+    </form>
+
     <form id="survey-form"   >      
       @csrf  
+
       <!--Info du Conges-->
       <fieldset class="field">
+   
        
          <!--Date debut du conges-->
-     <div class="rowTab"> 
+        <div class="rowTab"> 
       <div class="labels"><strong>
       <label id="name-label" for="datedebutdeC">*Date debut du Congé:</label>
       </strong></div>
       <div class="rightTab">
-        <input type="text" name="datedebutC" id="datedebutC" class="input-field" placeholder=" " >
+        <input type="date" name="datedebutC" id="datedebutC" class="input-field" placeholder=" " >
       </div>
     </div>
        <!--Date fin du conges-->
@@ -32,7 +48,7 @@
         <label id="name-label" for="observation">*Date fin du Congé :</label>
         </strong></div>
         <div class="rightTab">
-          <input  type="text" name="datefinC" id="datefinC" class="input-field" placeholder=" ">
+          <input  type="date" name="datefinC" id="datefinC" class="input-field" placeholder=" ">
         </div>
       </div>
 <!--Nombre du jour de Congé-->
@@ -118,7 +134,7 @@
       
       <button id="submit" type="submit">Ajouter !</button>
       <button id="reset" type="reset">Initialisation !</button>
-      <button id="buttonCherche" type="button">Recherche !</button>
+      <button id="search" type="button">Recherche !</button>
 
 
 

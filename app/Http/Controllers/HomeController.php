@@ -56,8 +56,12 @@ class HomeController extends Controller
 
         ]);
         if ($inInsertSuccress) {
-            return view("GcForm");
+            return view("GcForm",[$matricule]);
         }
+
         else {echo '<h1>Failed<h1>';}
     }
+    public function search(){
+        
+    };
 }

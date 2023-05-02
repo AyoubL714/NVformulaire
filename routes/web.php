@@ -17,4 +17,5 @@ use App\Http\Controllers\HomeController;
 Route::get('/',[HomeController::class,'HomeIndex']);
 Route::get('dataInsert',[HomeController::class,'DataInsert']);
 Route::Post('dataInsert',[HomeController::class,'DataInsert']);
+Route::Post('dataInsert',[HomeController::class,'GcForm']);
 
