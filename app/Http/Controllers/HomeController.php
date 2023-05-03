@@ -61,7 +61,16 @@ class HomeController extends Controller
 
         else {echo '<h1>Failed<h1>';}
     }
-    public function search(){
-        
-    };
+
+    public function search(Request $request)
+    {
+        $employeeId = $request->input('employee_id');
+        $employee = DB::select('SELECT * FROM employees WHERE id = ?', [$employeeId]);
+
+        if ($employee) {
+            return view('GcForm', ['employee' => $employee]);
+        } else {
+            return view('employee.not-found');
+        }
+    }
 }

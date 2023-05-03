@@ -13,18 +13,24 @@
   <div id="form-outer">
     <h2 id="description">Informations de Congés</h2>
 
-    <form method="POST" action="/GcForm" >
+    <form method="GET" action="{{ route('employee.search') }}">
+  @csrf
            <!-- demande de Matricule -->
            <div class="rowTab">
             <div class="labels"><strong>
                 <label id="name-label" for="matricule">*Matricule :</label>
               </strong></div>
             <div class="rightTab">
-              <input autofocus type="number" name="matricule" id="matricule" class="input-field" required>
+              <input autofocus type="text" name="employee_id" id="matricule" class="input-field" required>
             </div>
           </div>
-          <button id="search" type="button">Recherche !</button>
+          <button id="search" type="submit">Recherche !</button>
     </form>
+    @if(isset($employee))
+    <pre>
+      {{ $employee }}
+    </pre>
+  @endif
 
     <form id="survey-form"   >      
       @csrf  
