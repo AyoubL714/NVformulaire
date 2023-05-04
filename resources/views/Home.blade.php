@@ -236,30 +236,14 @@
         </div>
       </div>
 
-
-
-
-
-
-
-
-
+ 
       <button id="submit" type="submit">Ajouter</button>
       <button id="reset" type="reset">Initialisation</button>
-      <button id="search" type="button">Recherche</button>
-
-
-
-
-
-
-
-
-
-
-
-
+      
     </form>
+    <a id="search"
+    href="/dataInsert"
+    >Recherche</a>
   </div>
 
 </body>

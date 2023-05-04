@@ -16,7 +16,12 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/',[HomeController::class,'HomeIndex']);
-Route::get('dataInsert',[HomeController::class,'DataInsert']);
+Route::get('dataInsert',[HomeController::class,'searchEployee']);
 Route::Post('dataInsert',[HomeController::class,'DataInsert']);
 Route::get('/employee/search', [HomeController::class,'search'])->name('employee.search');
+
+Route::post(
+    "/employee/addVocation",
+    [HomeController::class,'addVocation']
+)->name("addVocation");
 
