@@ -80,15 +80,41 @@ $userData = [
     ) {
         $userData = [
             'matricule' => $request->input('matricule'),
-            'dateDebut' => $request->input('dateDebut'),
-            'dateFin' => $request->input('dateFin'),
-            'typeConge' => $request->input('typeConge'),
-            'duree' => $request->input('duree'),
-            'annee' => $request->input('annee'),
-            'dateRetour' => $request->input('dateRetour'),
+            'datedebut' => $request->input('datedebutC'),
+            'datefin' => $request->input('datefinC'),
+            'nbrjour' => $request->input('nbrjour'),
+            'relica' => $request->input('relica'),
+            'iddec' => $request->input('decision'),
+            'codtcng' => $request->input('currentPos'),
+            'adrcng' =>  $request->input('Adrs')
         ];
-        // return view('GcForm');
-        // insert l data to the conge table
-        return "<h1> ADDED </h1>";
+
+        // get the relica 
+        $employee = DB::select('SELECT pagent.*, conge.relica FROM pagent LEFT JOIN conge ON pagent.matricule = conge.matricule WHERE pagent.matricule = ?;', [
+            $userData[
+                "matricule"
+            ]
+        ]);
+        $relica = $employee[0]->relica - $userData['nbrjour'];
+
+       // Use updateOrInsert instead of insert
+$inInsertSuccress = DB::table('conge')->updateOrInsert(
+    ['matricule' => $userData['matricule']],
+    [
+        'datedeb' => $userData["datedebut"],
+        'datefin' => $userData['datefin'],
+        'nbrjours' => $userData['nbrjour'],
+        'relica' => $relica,
+        'codtcng' => $userData['codtcng'],
+        'adrcng' => $userData['adrcng'],
+    ]
+);
+        
+        if ($inInsertSuccress) {
+            // return view("GcForm");
+            echo '<h1>ok done<h1>';
+        }
+
+        else {echo '<h1>Failed<h1>';}
     }
 }

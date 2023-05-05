@@ -26,8 +26,8 @@
              </div>
              <button id="search" type="submit">Recherche</button>
          </form>
-         @if (isset($employee))
-             @foreach ($employee as $emp)
+         @if(isset($employee))
+             @foreach($employee as $emp)
                  <pre>
                     {{ $emp->NomArabe }}
                     {{ $emp->PrenomArabe }}
@@ -46,140 +46,149 @@
                     {{ $emp->Observation }}
                     {{ $emp->relica }}
                       </pre>
-                 <form id="survey-form" method="POST" action="/employee/addVocation"
-                 >
-                     @csrf
+                 <!-- if relica == 0 -->
+                 @if($emp->relica <= 0)
+                     <h1>
+                         Pas des jours
+                     </h1>
+                 @else
+                     <form id="survey-form" method="POST" action="/employee/addVocation">
+                         @csrf
 
-                     <!--Info du Conges-->
-                     <fieldset class="field">
+                         <!--Info du Conges-->
+                         <fieldset class="field">
 
 
-                         <!-- un editable matricule -->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="name-label" for="datedebutdeC">Matricule:</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="text" name="matricule" id="matricule" class="input-field"
-                                     value="{{ $emp->matricule }}" readonly>
+                             <!-- un editable matricule -->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="name-label" for="matricule">Matricule:</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <input type="text" name="matricule" id="matricule" class="input-field"
+                                         value="{{ $emp->matricule }}" readonly>
+                                 </div>
                              </div>
-                         </div>
-                         <!--  -->
-                         <!-- NAME -->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="name-label" for="datedebutdeC">
-                                         Nom et Prenom :</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="text" name="fullname" id="fullname" class="input-field"
-                                     value="{{ $emp->Nom }} {{ $emp->Prenom }}" readonly>
+                             <!--  -->
+                             <!-- NAME -->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="name-label" for="fullname">
+                                             Nom et Prenom :</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <input type="text" name="fullname" id="fullname" class="input-field"
+                                         value="{{ $emp->Nom }} {{ $emp->Prenom }}" readonly>
+                                 </div>
                              </div>
-                         </div>
-                         <!-- CIN  -->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="name-label" for="datedebutdeC">
-                                         CIN :</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="text" name="cin" id="cin" class="input-field"
-                                     value="{{ $emp->NumCIN }}" readonly>
+                             <!-- CIN  -->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="name-label" for="cin">
+                                             CIN :</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <input type="text" name="cin" id="cin" class="input-field"
+                                         value="{{ $emp->NumCIN }}" readonly>
+                                 </div>
                              </div>
-                         </div>
-                         <!--Date debut du conges-->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="name-label" for="datedebutdeC">*Date debut du Congé:</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="date" name="datedebutC" id="datedebutC" class="input-field"
-                                     placeholder=" ">
+                             <!--Date debut du conges-->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="name-label" for="datedebutC">*Date debut du Congé:</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <input type="date" name="datedebutC" id="datedebutC" class="input-field"
+                                         placeholder=" ">
+                                 </div>
                              </div>
-                         </div>
-                         <!--Date fin du conges-->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="name-label" for="observation">*Date fin du Congé :</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="date" name="datefinC" id="datefinC" class="input-field"
-                                     placeholder=" ">
+                             <!--Date fin du conges-->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="name-label" for="datefinC">*Date fin du Congé :</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <input type="date" name="datefinC" id="datefinC" class="input-field"
+                                         placeholder=" ">
+                                 </div>
                              </div>
-                         </div>
-                         <!--Nombre du jour de Congé-->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="date-label" for="NbrConge">*Nombre du jour de Congé :</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="number" name="Date" id="Date" class="input-field">
+                             <!--Nombre du jour de Congé-->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="date-label" for="nbrjour">*Nombre du jour de Congé :</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <!-- 
+                                    TODO : do not allow a value > {{ $emp->relica }}
+                                 -->
+                                     <input type="number" name="nbrjour" id="nbrjour" class="input-field" min="0"
+                                         max="{{ $emp->relica }}" placeholder=" ">
+                                 </div>
                              </div>
-                         </div>
-                         <!--Relica-->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="date-label" for="relica">*Relica(Nombre de jours Restants) :</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="number" value="{{ $emp->relica }}" name="relica" id="relica"
-                                     class="input-field" readonly>
+                             <!--Relica-->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="date-label" for="relica">Relica(Nombre de jours Restants) :</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <input type="number" value="{{ $emp->relica }}" name="relica" id="relica"
+                                         class="input-field" readonly>
+                                 </div>
                              </div>
-                         </div>
-                         <!--Type de Congé-->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label for="currentPos">*Type de Congé :</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <select id="dropdown" name="currentPos" class="dropdown" required>
-                                     <option disabled selected value>Congé</option>
-                                     <option>Conge administratif</option>
-                                     <option>Conge de maladie</option>
-                                     <option>Conge de maternité</option>
-                                     <option>Conge exceptionnels</option>
-                                     <option>Accident de travail </option>
-                                     <option>La meque</option>
-                                     <option>Autorisation d'allaitement</option>
-                                     <option>Autre</option>
-                                     <option>Absence Non Justifié</option>
-                                 </select>
+                             <!--Type de Congé-->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label for="currentPos">*Type de Congé :</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <select id="dropdown" name="currentPos" class="dropdown" required>
+                                         <option disabled selected value>Congé</option>
+                                         <option>Conge administratif</option>
+                                         <option>Conge de maladie</option>
+                                         <option>Conge de maternité</option>
+                                         <option>Conge exceptionnels</option>
+                                         <option>Accident de travail </option>
+                                         <option>La meque</option>
+                                         <option>Autorisation d'allaitement</option>
+                                         <option>Autre</option>
+                                         <option>Absence Non Justifié</option>
+                                     </select>
+                                 </div>
                              </div>
-                         </div>
-                         <!--Decision-->
+                             <!--Decision-->
 
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="name-label" for="decision">*Decision :</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="text" name="decision" id="decision" class="input-field"
-                                     placeholder="" required>
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="name-label" for="decision">*Decision :</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <input type="text" name="decision" id="decision" class="input-field" placeholder=""
+                                         required>
+                                 </div>
                              </div>
-                         </div>
-                         <!--Adresse du Conge-->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="name-label" for="Adrs">*Adresse du Congé:</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="text" name="Adrs" id="Adrs" class="input-field" required>
+                             <!--Adresse du Conge-->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="name-label" for="Adrs">*Adresse du Congé:</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <input type="text" name="Adrs" id="Adrs" class="input-field" required>
+                                 </div>
                              </div>
-                         </div>
-                         <!--Observation-->
-                         <div class="rowTab">
-                             <div class="labels"><strong>
-                                     <label id="name-label" for="observation">*Observation :</label>
-                                 </strong></div>
-                             <div class="rightTab">
-                                 <input type="text" name="Obs" id="Obs" class="input-field"
-                                     placeholder="" required>
+                             <!--Observation-->
+                             <div class="rowTab">
+                                 <div class="labels"><strong>
+                                         <label id="name-label" for="observation">*Observation :</label>
+                                     </strong></div>
+                                 <div class="rightTab">
+                                     <input type="text" name="Obs" id="Obs" class="input-field" placeholder="" required>
+                                 </div>
                              </div>
-                         </div>
-                     </fieldset>
-                     <button id="submit" type="submit">Ajouter</button>
-                     <button id="reset" type="reset">Initialisation</button>
-                 </form>
+                         </fieldset>
+                         <button id="submit" type="submit">Ajouter</button>
+                         <button id="reset" type="reset">Initialisation</button>
+                     </form>
+                 @endif
              @endforeach
          @endif
 
@@ -188,10 +197,10 @@
              <h1>
                  {{ $error }}
              </h1>
-             @endif
+         @endif
 
-         </div>
+     </div>
 
-     </body>
+ </body>
 
-     </html>
+ </html>
